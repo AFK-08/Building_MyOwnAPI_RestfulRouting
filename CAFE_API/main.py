@@ -50,6 +50,7 @@ def home():
 
 
 # HTTP GET - Read Record
+## Get a random cafe to Visit:
 @app.route("/random")
 def get_random_cafe():
         result = db.session.execute(db.select(Cafe))
@@ -57,7 +58,7 @@ def get_random_cafe():
         random_cafe = random.choice(all_cafes)
         return jsonify(cafe=random_cafe.to_dict())
 
-
+## Get all the Cafes in our database:
 @app.route("/all")
 def get_all_cafes():
     result = db.session.execute(db.select(Cafe))
@@ -65,6 +66,7 @@ def get_all_cafes():
     all_cafes = [cafe.to_dict() for cafe in all_cafe]
     return jsonify(all=all_cafes)
 
+## Search the cafes on Specific Location:
 @app.route("/search")
 def search_cafe():
     query_location = request.args.get("loc")
