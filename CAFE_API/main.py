@@ -129,7 +129,7 @@ def update_price(id):
 ## Delete a Cafe Record from Database:
 @app.route("/report-closed/<int:id>", methods=["DELETE"])
 def delete_cafe(id):
-    key = request.get.args("api-key")
+    key = request.args.get("api-key")
     if key == "SECRETAPIKEY":
         cafe = Cafe.query.get(id)
         if cafe:
@@ -144,7 +144,7 @@ def delete_cafe(id):
             })
     else:
         return jsonify({
-            "message":"Make sure to add correct key"
+            "message":"You are not authorized.Make sure to add correct API KEY"
         })
 
 
