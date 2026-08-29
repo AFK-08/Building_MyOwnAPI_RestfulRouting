@@ -88,6 +88,7 @@ def search_cafe():
 
 # HTTP POST - Create Record
 ## Add a Cafe to the Database:
+
 @app.route("/add", methods=["POST"])
 def post_new_cafe():
     new_cafe = Cafe(
@@ -107,8 +108,26 @@ def post_new_cafe():
     return jsonify(response={"success": "Successfully added the new cafe."})
 
 # HTTP PUT/PATCH - Update Record
+## Update Price of Specific Cafe:
+
+@app.route("/update-price/<int:id>",methods=["PATCH"])
+def update_price(id):
+    updated_price = request.args.get("new-price")
+    cafe = Cafe.query.get(id)
+    if cafe:
+        cafe.coffee_price = updated_price
+        db.session.commit()
+        return jsonify({
+            "message":"Price Updated Successfully",
+        })
+    else:
+        return jsonify({
+            "message":"Cafe with that id not found"
+        })
 
 # HTTP DELETE - Delete Record
+## Delete a Cafe Record from Database:
+
 
 
 if __name__ == '__main__':
